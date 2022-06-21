@@ -1,0 +1,80 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class ListarRegistro {
+
+    private static ListarRegistro instance ListarRegistro;
+    private Context context;
+
+    private static String[] ranking = new String[0];
+    private static String[] razao = new String[0];
+    private static String[] nome = new String[0];
+    private static String[] atendida = new String[0];
+    private static String[] naoatendida = new String[0];
+    private static String[] total = new String[0];
+
+
+    public static synchronized ListarRegistro getInstanceListarRegistro(Context context) {
+
+        if(getInstanceListarRegistro = null)
+        instanceListarEmpresa =  new ListarEmpresa(context);
+        return instanceListarEmpresa;
+    }
+
+    public ListarRegistro(Context context) {
+        this.context = context;
+        this.RANKING = this.context.getResources().getStringArray(R.array.Ranking);
+        this.RAZAO = this.context.getResources().getStringArray(R.array.Razao_Social);
+        this.NOME = this.context.getResources().getStringArray(R.array.Empresas);
+        this.ATENDIDA = this.context.getResources().getStringArray(R.array.Atendidas);
+        this.NAOATENDIDA = this.context.getResources().getStringArray(R.array.NaoAtendidas);
+        this.TOTAL = this.context.getResources().getStringArray(R.array.Totais);
+    }
+    
+    public List<registro> getListarregistro(){
+        List<registro> registroList = new ArrayList<registro>();
+        int indice = 0;
+
+        while (indice < this.RAZAO.length){
+            registro registsro = new registro();
+            registro.setNome(this.NOME[indice]);
+            registro.setRanker(this.RANKING[indice]);
+            registro.setAtendido(this.ATENDIDA[indice]);
+            registro.setNaoAtendido(this.NAOATENDIDA[indice]);
+            registro.setTotal(this.TOTAL[indice]);
+            registroList.add(registro);
+            indice++;
+        }
+        return registroList;
+    }
+
+    public List<registro> searchregistro(String nome) {
+        List<registro> registroList = new ArrayList<registro>();
+        int indice = getIndexArraySearch(nome);
+
+        if (indice >= 0) {
+            registro registro = new registro();
+            registro.setNome(this.NOME[indice]);
+            registro.setRanker(this.RANKING[indice]);
+            registro.setAtendido(this.ATENDIDA[indice]);
+            registro.setNaoAtendido(this.NAOATENDIDA[indice]);
+            registro.setTotal(this.TOTAL[indice]);
+
+            registroList.add(registro);
+            return registroList;
+        }
+        return null;
+    }
+
+    private int getIndexArraySearch(String nome){
+        int i = 0;
+        while (i < this.RAZAO.length){
+            if (this.RAZAO[i].equals(nome) || this.NOME[i].equals(nome))
+                return i;
+            i++;
+        }
+        return -1;
+    }
+    }
+
+}
